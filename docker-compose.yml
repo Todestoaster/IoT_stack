@@ -1,0 +1,56 @@
+version: "3.9"
+services:
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    environment:
+      - TZ=Europe/Berlin
+    ports:
+      - 1880:1880
+    volumes:
+      - ./node-red:/data
+    networks:
+      - iot_stack
+    restart: on-failure
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    ports:
+      - 1883:1883
+      - 9001:9001
+    networks:
+      - iot_stack
+    restart: on-failure
+
+  influx:
+    image: influxdb:1.8.10-alpine
+    container_name: influx
+    ports:
+      - 8086:8086
+    volumes:
+      - ./influxdb:/var/lib/influxdb
+    networks:
+      - iot_stack
+    restart: on-failure
+  
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana:/var/lib/grafana
+    networks:
+      - iot_stack
+    restart: on-failure
+  
+volumes:
+  node-red:
+  influxdb:
+  grafana:
+  
+networks:
+  iot_stack:

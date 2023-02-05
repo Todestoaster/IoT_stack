@@ -1,0 +1,171 @@
+[
+    {
+        "id": "83288fb232bc9080",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7f16394e731038e2",
+        "type": "mqtt-broker",
+        "name": "mosquitto",
+        "broker": "mosquitto",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "5771b7e016b57324",
+        "type": "influxdb",
+        "hostname": "influx",
+        "port": "8086",
+        "protocol": "http",
+        "database": "test",
+        "name": "InfluxDB",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "influx:",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "dc89128937b4c78f",
+        "type": "inject",
+        "z": "83288fb232bc9080",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "507b0ddb93dc9c52",
+                "3b026d9207051f7f"
+            ]
+        ]
+    },
+    {
+        "id": "507b0ddb93dc9c52",
+        "type": "debug",
+        "z": "83288fb232bc9080",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "0be1ded5331f438e",
+        "type": "mqtt in",
+        "z": "83288fb232bc9080",
+        "name": "",
+        "topic": "test",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7f16394e731038e2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 410,
+        "y": 400,
+        "wires": [
+            [
+                "12be8eb48d58b59e",
+                "1f019622c304d36e"
+            ]
+        ]
+    },
+    {
+        "id": "3b026d9207051f7f",
+        "type": "mqtt out",
+        "z": "83288fb232bc9080",
+        "name": "",
+        "topic": "test",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7f16394e731038e2",
+        "x": 350,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "12be8eb48d58b59e",
+        "type": "debug",
+        "z": "83288fb232bc9080",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1f019622c304d36e",
+        "type": "influxdb out",
+        "z": "83288fb232bc9080",
+        "influxdb": "5771b7e016b57324",
+        "name": "",
+        "measurement": "value",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "test",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 740,
+        "y": 500,
+        "wires": []
+    }
+]
