@@ -14,7 +14,7 @@ services:
     restart: on-failure
 
   mosquitto:
-    image: eclipse-mosquitto:latest
+    image: eclipse-mosquitto
     container_name: mosquitto
     volumes:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
@@ -26,7 +26,8 @@ services:
     restart: on-failure
 
   influx:
-    image: influxdb:1.8.10-alpine
+    image: influxdb:1.8.10
+    platform: linux/arm64/v8
     container_name: influx
     ports:
       - 8086:8086
@@ -35,9 +36,11 @@ services:
     networks:
       - iot_stack
     restart: on-failure
-  
+
   grafana:
-    image: grafana/grafana-oss:latest
+    image: grafana/grafana
+    platform: linux/arm64/v8
+    user: "1000"
     container_name: grafana
     ports:
       - 3000:3000
@@ -46,11 +49,11 @@ services:
     networks:
       - iot_stack
     restart: on-failure
-  
+
 volumes:
   node-red:
   influxdb:
   grafana:
-  
+
 networks:
   iot_stack:
